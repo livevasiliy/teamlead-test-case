@@ -54,7 +54,9 @@ export default new Vuex.Store({
   getters: {
     posts: s => s.posts,
     post: s => id => s.posts.find(p => p.id === id),
-    isAuthorization: s => !!s.user
+    isAuthorization: s => !!s.user,
+    isReader: s => s.user.role === 'reader',
+    isWriter: s => s.user.role === 'writer'
   },
   modules: {
   }

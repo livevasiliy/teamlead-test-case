@@ -4,7 +4,6 @@
     <div class="container">
         <div class="columns mx-3">
             <PostCard :post="post" />
-            />
         </div>
     </div>
   </div>
@@ -24,7 +23,7 @@ export default {
   }),
   async mounted () {
     await this.$http
-    .get(`/posts/${this.$route.params}`)
+    .get(`/posts/${this.$route.params.id}`)
     .then((response) => {
       this.post = response.data
     })

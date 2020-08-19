@@ -8,6 +8,15 @@
                     :key="post.id"
                     :post="post"
             />
+            <!--<Pagination
+                    :total=+totalPages
+                    :rangeBefore="3"
+                    :rangeAfter="4"
+                    :perPage="10"
+                    :current="1"
+                    prevIcon="arrow-left"
+                    nextIcon="arrow-right"
+            />-->
         </div>
         <b-notification
                 type="is-info"
@@ -24,22 +33,24 @@
 <script>
 import Navbar from '@/components/Shared/Navbar'
 import PostCard from '@/components/Posts/PostCard'
+import { mapGetters } from 'vuex'
+// import Pagination from '@/components/Shared/Pagination'
 export default {
   name: 'Posts',
   components: {
     Navbar,
-    PostCard
+    PostCard,
+    //Pagination
   },
-  async mounted () {
-    await this.$http.get('/posts').then((response) => {
-      localStorage.setItem('posts', JSON.stringify(response.data))
-      this.$store.dispatch('fetchPosts', response.data)
-    })
-  },
+  data: () => ({
+    currentPage: null,
+    firstPage: null,
+    prevPage: null,
+    nextPage: null,
+    totalPages: null
+  }),
   computed: {
-    posts() {
-      return this.$store.getters.posts
-    }
+    ...mapGetters(['posts'])
   }
 }
 </script>

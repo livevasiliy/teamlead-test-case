@@ -18,7 +18,7 @@
       "id": 1,
       "title": "Название поста",
       "description": "Текст",
-      "claps": 20,
+      "claps": 36,
       "createdAt": "2019-09-29T00:00:00.000Z",
       "updateAt": "2019-09-29T00:00:00.000Z",
       "userId": 1
@@ -908,11 +908,11 @@
     {
       "userId": 1,
       "id": 100,
-      "title": "at nam consequatur ea labore ea harum",
-      "description": "cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error aut",
+      "title": "at nam consequatur ea labore ea harumasdsadsadsadas",
+      "description": "cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error autasdsadsadsads",
       "claps": 0,
       "createdAt": "2019-09-29T00:00:00.000Z",
-      "updateAt": "2019-09-29T00:00:00.000Z"
+      "updateAt": "2020-08-21T00:43:04+04:00"
     }
   ]
 }

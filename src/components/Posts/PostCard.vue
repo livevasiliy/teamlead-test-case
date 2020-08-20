@@ -31,7 +31,10 @@
                     <i class="icon fas fa-edit has-text-info"></i>
                     <span class="px-2">Изменить</span>
                 </router-link>
-                <button class="button is-light">
+                <button
+                        class="button is-light"
+                        @click.prevent="deletePost(post.id)"
+                >
                     <i class="icon fas fa-trash-alt has-text-info"></i>
                     <span class="px-2">Удалить</span>
                 </button>
@@ -41,6 +44,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'PostCard',
     props: {
@@ -50,6 +55,7 @@
       },
     },
     methods: {
+      ...mapActions(['deletePost']),
       makeClaps(postId) {
         this.$store.dispatch('makeClaps', postId)
       }

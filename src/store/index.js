@@ -14,11 +14,20 @@ export default new Vuex.Store({
       prevPage: '',
       nextPage: '',
     },
-    error: '',
+    message: {
+      type: '',
+      text: '',
+    },
   },
   mutations: {
     addPost (state, payload) {
       state.posts.concat(payload)
+    },
+    updatePost (state, payload) {
+      state.posts = payload
+    },
+    deletePost (state, payload) {
+      state.posts = payload
     },
     fetchPosts (state, payload) {
       state.posts = payload
@@ -37,48 +46,92 @@ export default new Vuex.Store({
       state.user = null
       localStorage.removeItem('user')
     },
-    setError (state, payload) {
-      state.error = payload
+    setMessage (state, payload) {
+      state.message = payload
     },
-    clearError (state) {
-      state.error = ''
+    clearMessage (state) {
+      state.message = {
+        type: '',
+        text: '',
+      }
     },
   },
   actions: {
     addPost ({ commit }, payload) {
-      commit('addPost', payload)
-    },
-    fetchPosts ({ commit }) {
-      axios
-      .get('/posts?_page=1&_limit=10')
-      .then((response) => {
-        const totalPages = response.headers['x-total-count']
-        const links = response.headers.link.split(',')
-        const firstPage = links.find(link => link.search('first'))
-        const prevPage = links.find(link => link.search('prev'))
-        const nextPage = links.find(link => link.search('next'))
-
-        const paginateInfo = {
-          totalPages,
-          firstPage,
-          prevPage,
-          nextPage,
-        }
-        localStorage.setItem('posts', JSON.stringify(response.data))
-        commit('fetchPosts', response.data)
-        commit('setPaginateInfo', paginateInfo)
+      axios.post('/posts', payload).then((response) => {
+        commit('addPost', response.data)
+        commit('setMessage', {
+          type: 'success',
+          text: 'Статья успешно добавились',
+        })
+      }).catch(() => {
+        commit('setMessage', {
+          type: 'error',
+          text: 'Что-то пошло не так',
+        })
       })
     },
-    async makeClaps ({ commit }, payload) {
+    // eslint-disable-next-line no-unused-vars
+    updatePost ({ commit }, payload) {
+      axios.patch(`/posts/${payload.id}`, {
+        ...payload
+      }).then(() => {
+        commit('setMessage', {
+          type: 'success',
+          text: 'Статья успешно обновилась',
+        })
+      })
+
+      axios.get('/posts').then((response) => {
+        localStorage.setItem('posts', JSON.stringify(response.data))
+        commit('updatePost', response.data)
+
+      })
+    },
+    deletePost ({ commit }, payload) {
+      axios.delete(`/posts/${payload}`).then(() => {
+        const posts = this.state.posts.filter(p => p.id !== payload)
+        commit('deletePost', posts)
+        commit('setMessage', {
+          type: 'success',
+          text: 'Статья успешно удалилась',
+        })
+      }).catch(() => {
+        commit('setMessage', {
+          type: 'danger',
+          text: 'Произошла ошибка при удаление',
+        })
+      })
+    },
+    fetchPosts ({ commit }) {
+      axios.get('/posts?_page=1&_limit=10&_sort=id&_order=desc').
+        then((response) => {
+          const totalPages = response.headers['x-total-count']
+          const links = response.headers.link.split(',')
+          const firstPage = links.find(link => link.search('first'))
+          const prevPage = links.find(link => link.search('prev'))
+          const nextPage = links.find(link => link.search('next'))
+
+          const paginateInfo = {
+            totalPages,
+            firstPage,
+            prevPage,
+            nextPage,
+          }
+          localStorage.setItem('posts', JSON.stringify(response.data))
+          commit('fetchPosts', response.data)
+          commit('setPaginateInfo', paginateInfo)
+        })
+    },
+    makeClaps ({ commit }, payload) {
       let post = this.getters.post(payload)
-      await axios.patch(`/posts/${post.id}`, {
+      axios.patch(`/posts/${post.id}`, {
         'claps': post.claps + 1,
       }).then(response => response.data)
 
-      await axios.get('/posts').then((response) => {
+      axios.get('/posts').then((response) => {
         localStorage.setItem('posts', JSON.stringify(response.data))
         commit('makeClaps', response.data)
-
       })
     },
     login ({ commit }, payload) {
@@ -87,11 +140,11 @@ export default new Vuex.Store({
     logout ({ commit }) {
       commit('logout')
     },
-    setError ({ commit }, payload) {
-      commit('setError', payload)
+    setMessage ({ commit }, payload) {
+      commit('setMessage', payload)
     },
-    clearError ({ commit }) {
-      commit('clearError')
+    clearMessage ({ commit }) {
+      commit('clearMessage')
     },
   },
   getters: {
@@ -101,6 +154,8 @@ export default new Vuex.Store({
     isReader: s => !!s.user && s.user.role === 'reader',
     isWriter: s => !!s.user && s.user.role === 'writer',
     isAuthorization: s => !!s.user,
+    message: s => s.message,
+    paginateInfo: s => s.paginateInfo,
   },
   modules: {},
 })

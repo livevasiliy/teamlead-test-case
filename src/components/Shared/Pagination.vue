@@ -15,8 +15,9 @@
             aria-next-label="Следующая страница"
             aria-previous-label="Предыдущая страница"
             aria-page-label="Страница"
-            aria-current-label="Текущая страница">
-    </b-pagination>
+            aria-current-label="Текущая страница"
+            @change="current+1"
+    />
 </template>
 
 <script>

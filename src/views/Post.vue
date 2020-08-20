@@ -1,34 +1,29 @@
 <template>
-  <div>
-    <Navbar />
-    <div class="container">
-        <div class="columns mx-3">
-            <PostCard :post="post" />
-        </div>
+    <div>
+        <Navbar/>
+        <PostDetail :post="post"/>
     </div>
-  </div>
 </template>
 
 <script>
-import Navbar from '@/components/Shared/Navbar'
-import PostCard from '@/components/Posts/PostCard'
-export default {
-  name: 'Post',
-  components: {
-    Navbar,
-    PostCard
-  },
-  data: () => ({
-    post: {}
-  }),
-  async mounted () {
-    await this.$http
-    .get(`/posts/${this.$route.params.id}`)
-    .then((response) => {
-      this.post = response.data
-    })
+  import Navbar from '@/components/Shared/Navbar'
+  import PostDetail from '@/components/Posts/PostDetail'
+
+  export default {
+    name: 'Post',
+    components: {
+      Navbar,
+      PostDetail,
+    },
+    data: () => ({
+      post: {},
+    }),
+    async mounted () {
+      await this.$http.get(`/posts/${this.$route.params.id}`).then((response) => {
+        this.post = response.data
+      })
+    },
   }
-}
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@
     <b-navbar type="is-info">
         <template slot="end">
             <b-navbar-item tag="div">
-                <div class="buttons" v-if="!isAuthorization">
+                <div class="buttons" v-if="!this.isAuthorization">
                     <router-link
                             tag="a"
                             exact
@@ -13,7 +13,15 @@
                     </router-link>
                 </div>
                 <div class="buttons" v-else>
-                    <a class="button is-info" @click.prevent="logout()">
+                    <router-link
+                            to="/posts/create"
+                            exact
+                            tag="a"
+                            class="button is-dark"
+                    >
+                        Создать новую запись
+                    </router-link>
+                    <a class="button is-info" @click.prevent="this.logout()">
                         Выйти
                     </a>
                 </div>

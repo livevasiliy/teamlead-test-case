@@ -50,6 +50,8 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, minLength, email } from 'vuelidate/lib/validators'
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'AuthForm',
     mixins: [validationMixin],
@@ -62,6 +64,7 @@
       password: '',
     }),
     computed: {
+      ...mapActions(['login', 'setMessage']),
       emailErrors () {
         const errors = []
         if (!this.$v.email.$dirty) return errors
@@ -82,17 +85,16 @@
       async submit () {
         this.$v.$touch()
         const user = await this.getUserByAuthCredentials(this.$v.email.$model)
-        console.log(user)
         if (user.length > 0) {
           if (user[0].password === this.$v.password.$model) {
-            await this.$store.dispatch('login', user[0])
+            await this.login(user[0])
             await this.$router.push('/')
           } else {
-            await this.$store.dispatch('setError', 'Не правильный email или пароль')
+            await this.setMessage({type: 'danger', text: 'Не правильный email или пароль'})
           }
         }
         if (user.length === 0) {
-          await this.$store.dispatch('setError', 'Пользователь с таким email не найден')
+          await this.setMessage({type: 'danger', text: 'Пользователь с таким email не найден'})
         }
       },
       async getUserByAuthCredentials (email) {

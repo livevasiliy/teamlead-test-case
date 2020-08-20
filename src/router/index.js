@@ -20,19 +20,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "posts" */ '../views/Posts.vue'),
   },
   {
-    path: '/posts/:id',
-    name: 'postShow',
-    props: true,
-    component: () => import(/* webpackChunkName: "post" */ '../views/Post.vue'),
-  },
-  {
     path: '/posts/create',
     name: 'postCreate',
     props: true,
     component: () => import(/* webpackChunkName: "post-create" */ '../views/PostCreate.vue'),
-    meta: {
-      title: 'Страница создания'
-    }
+  },
+  {
+    path: '/posts/:id',
+    name: 'postShow',
+    props: true,
+    component: () => import(/* webpackChunkName: "post" */ '../views/Post.vue'),
   },
   {
     path: '/posts/:id/edit',

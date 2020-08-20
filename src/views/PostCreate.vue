@@ -1,15 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="hero is-fullheight is-light">
-      <div class="hero-body">
-        <div class="container is-fluid">
-          <div class="columns is-centered">
-            <PostCreateForm />
-          </div>
-        </div>
-      </div>
-    </div>
+    <PostCreateForm />
   </div>
 </template>
 

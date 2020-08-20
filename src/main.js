@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { mapActions } from 'vuex'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import axios from 'axios'
@@ -18,5 +19,11 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  methods: {
+    ...mapActions(['fetchPosts'])
+  },
+  async mounted() {
+    await this.fetchPosts
+  }
 }).$mount('#app')

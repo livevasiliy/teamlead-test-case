@@ -71,7 +71,6 @@ export default new Vuex.Store({
         })
       })
     },
-    // eslint-disable-next-line no-unused-vars
     updatePost ({ commit }, payload) {
       axios.patch(`/posts/${payload.id}`, {
         ...payload
@@ -104,7 +103,7 @@ export default new Vuex.Store({
       })
     },
     fetchPosts ({ commit }) {
-      axios.get('/posts?_page=1&_limit=10&_sort=id&_order=desc').
+      axios.get('/posts?_page=1&_limit=10&_sort=id&_order=asc').
         then((response) => {
           const totalPages = response.headers['x-total-count']
           const links = response.headers.link.split(',')

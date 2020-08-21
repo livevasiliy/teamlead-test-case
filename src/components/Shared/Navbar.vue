@@ -18,6 +18,7 @@
                             exact
                             tag="a"
                             class="button is-dark"
+                            v-if="isWriter"
                     >
                         Создать новую запись
                     </router-link>
@@ -31,17 +32,15 @@
 </template>
 
 <script>
+    import {mapActions, mapGetters} from "vuex";
+
   export default {
     name: 'Navbar',
     computed: {
-      isAuthorization() {
-        return this.$store.getters.isAuthorization
-      }
+      ...mapGetters(['isAuthorization', 'isWriter'])
     },
     methods: {
-      logout() {
-        this.$store.dispatch('logout')
-      }
+        ...mapActions(['logout'])
     }
   }
 </script>

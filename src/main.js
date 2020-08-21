@@ -6,6 +6,7 @@ import { mapActions } from 'vuex'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import axios from 'axios'
+import { dateAgo } from './helpers'
 
 axios.defaults.baseURL = 'http://localhost:4000'
 axios.defaults.responseType = 'json'
@@ -16,6 +17,13 @@ Vue.use(Buefy)
 
 Vue.config.productionTip = false
 
+Vue.directive('dateAgo', {
+  bind(el) {
+    const date = el.innerText.toString()
+    el.innerText = dateAgo(date)
+  }
+})
+
 new Vue({
   router,
   store,
@@ -23,7 +31,7 @@ new Vue({
   methods: {
     ...mapActions(['fetchPosts'])
   },
-  async mounted() {
-    await this.fetchPosts
+  mounted() {
+    this.fetchPosts()
   }
 }).$mount('#app')

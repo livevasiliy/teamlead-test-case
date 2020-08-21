@@ -6,8 +6,8 @@
                     <h1 class="title">
                         {{ post.title }}
                     </h1>
-                    <h2 class="subtitle">
-                        {{ new Date(post.createdAt).toLocaleDateString() }}
+                    <h2 class="subtitle" v-date-ago>
+                        {{ post.createdAt }}
                     </h2>
                 </div>
             </div>

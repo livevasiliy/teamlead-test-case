@@ -12,7 +12,7 @@
             <div class="content">
                 {{ post.description }}
             </div>
-            <span class="card-time mt-5">{{ new Date(post.createdAt).toLocaleDateString() }}</span>
+            <span class="card-time mt-5" v-date-ago>{{ post.createdAt }}</span>
             <button
                     class="button is-light is-pulled-right"
                     v-if="isReader"

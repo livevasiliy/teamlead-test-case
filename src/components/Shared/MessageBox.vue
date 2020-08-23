@@ -1,12 +1,12 @@
 <template>
-    <b-notification
-            v-if="message.type !== ''"
-            :type="`is-${message.type}`"
-            aria-close-label="Close notification"
-            @close="clearMessage"
-    >
-        {{ message.text }}
-    </b-notification>
+  <b-notification
+          v-if="message.type !== ''"
+          :type="`is-${message.type}`"
+          aria-close-label="Close notification"
+          @close="clearMessage"
+  >
+    {{ message.text }}
+  </b-notification>
 </template>
 
 <script>
@@ -15,11 +15,11 @@
   export default {
     name: 'MessageBox',
     computed: {
-      ...mapGetters(['message'])
+      ...mapGetters(['message']),
     },
     methods: {
       ...mapActions(['clearMessage']),
-    }
+    },
   }
 </script>
 

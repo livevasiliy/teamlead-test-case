@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <Navbar/>
-        <PostDetail :post="post"/>
-    </div>
+  <div>
+    <Navbar/>
+    <PostDetail :post="post"/>
+  </div>
 </template>
 
 <script>
@@ -27,7 +27,7 @@
 </script>
 
 <style scoped>
-    .columns {
-        flex-direction: column;
-    }
+  .columns {
+    flex-direction: column;
+  }
 </style>

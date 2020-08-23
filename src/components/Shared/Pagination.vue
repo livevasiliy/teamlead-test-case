@@ -1,23 +1,22 @@
 <template>
-    <b-pagination
-            class="is-info"
-            :total="total"
-            v-model="current"
-            :range-before="rangeBefore"
-            :range-after="rangeAfter"
-            :order="order"
-            :size="size"
-            :simple="isSimple"
-            :rounded="isRounded"
-            :per-page="perPage"
-            :icon-prev="prevIcon"
-            :icon-next="nextIcon"
-            aria-next-label="Следующая страница"
-            aria-previous-label="Предыдущая страница"
-            aria-page-label="Страница"
-            aria-current-label="Текущая страница"
-            @change="current+1"
-    />
+  <b-pagination
+          :total="total"
+          v-model="currentPage"
+          :range-before="rangeBefore"
+          :range-after="rangeAfter"
+          :order="order"
+          :size="size"
+          :simple="isSimple"
+          :rounded="isRounded"
+          :per-page="perPage"
+          :icon-prev="prevIcon"
+          :icon-next="nextIcon"
+          aria-next-label="Next page"
+          aria-previous-label="Previous page"
+          aria-page-label="Page"
+          aria-current-label="Current page"
+          @change="changeHandle($event)"
+  />
 </template>
 
 <script>
@@ -26,15 +25,15 @@
     props: {
       total: {
         required: true,
-        type: Number
+        type: Number,
       },
       rangeBefore: {
         required: true,
-        type: Number
+        type: Number,
       },
       rangeAfter: {
         required: true,
-        type: Number
+        type: Number,
       },
       perPage: {
         type: Number,
@@ -42,7 +41,7 @@
       },
       current: {
         type: Number,
-        required: true
+        required: true,
       },
       prevIcon: {
         type: String,
@@ -50,29 +49,39 @@
       },
       nextIcon: {
         type: String,
-        required: true
+        required: true,
       },
       order: {
         type: String,
         required: false,
-        default: ''
+        default: '',
       },
       size: {
         type: String,
         required: false,
-        default: ''
+        default: '',
       },
       isSimple: {
         type: Boolean,
         required: false,
-        default: false
+        default: false,
       },
       isRounded: {
         type: Boolean,
         required: false,
-        default: false
+        default: false,
       },
-    }
+    },
+    methods: {
+      changeHandle (e) {
+        this.$store.dispatch('fetchPosts', e)
+      },
+    },
+    data: function () {
+      return {
+        currentPage: this.current,
+      }
+    },
   }
 </script>
 

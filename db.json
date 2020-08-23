@@ -16,11 +16,11 @@
   "posts": [
     {
       "id": 1,
-      "title": "Название поста",
-      "description": "Текст",
-      "claps": 36,
+      "title": "Название поста updated",
+      "description": "Текст updated",
+      "claps": 42,
       "createdAt": "2019-09-29T00:00:00.000Z",
-      "updateAt": "2019-09-29T00:00:00.000Z",
+      "updateAt": "2020-08-23T23:19:19+04:00",
       "userId": 1
     },
     {
@@ -28,7 +28,7 @@
       "id": 2,
       "title": "qui est esse",
       "description": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
-      "claps": 0,
+      "claps": 7,
       "createdAt": "2019-09-29T00:00:00.000Z",
       "updateAt": "2019-09-29T00:00:00.000Z"
     },

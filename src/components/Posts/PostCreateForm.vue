@@ -1,66 +1,71 @@
 <template>
-    <div>
-        <MessageBox />
-        <section class="hero is-light is-fullwidth">
-            <div class="hero-body">
-                <div class="container">
-                    <div class="title">
-                        <b-field
-                                label="Заголовок"
-                                :type="titleErrors.length > 0 ? 'is-danger' : ''"
-                                :message="titleErrors"
-                        >
-                            <b-input
-                                    placeholder="Введите заголовок, например, Как я круто провёл своё лето"
-                                    type="text"
-                                    v-model.trim="post.title"
-                                    @input="$v.post.title.$touch()"
-                                    @blur="$v.post.title.$touch()"
-                                    maxlength="120"
-                                    required
-                            ></b-input>
-                        </b-field>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <div class="hero-body is-fullheight">
-            <div class="container">
-                <p class="subtitle">
-                    <b-field
-                            label="Описание"
-                            :type="descriptionErrors.length > 0 ? 'is-danger' : ''"
-                            :message="descriptionErrors"
-                    >
-                        <b-input
-                                type="textarea"
-                                placeholder="Начните свой первые строки своей истории"
-                                v-model.trim="post.description"
-                                @input="$v.post.description.$touch()"
-                                @blur="$v.post.description.$touch()"
-                        ></b-input>
-                    </b-field>
-                </p>
-                <div class="field is-grouped is-pulled-right">
-                    <div class="control">
-                        <button
-                                class="button is-success"
-                                type="submit"
-                                @click.prevent="submit"
-                        >
-                            <span>Создать</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <div>
+    <MessageBox/>
+    <section class="hero is-light is-fullwidth">
+      <div class="hero-body">
+        <router-link tag="button" to="/" exact class="button is-info has-text-white">
+          <i class="icon fas fa-arrow-left has-text-white"></i>
+          <span>Назад к постам</span>
+        </router-link>
+        <div class="container">
+          <div class="title">
+            <b-field
+                    label="Заголовок"
+                    :type="titleErrors.length > 0 ? 'is-danger' : ''"
+                    :message="titleErrors"
+            >
+              <b-input
+                      placeholder="Введите заголовок, например, Как я круто провёл своё лето"
+                      type="text"
+                      v-model.trim="post.title"
+                      @input="$v.post.title.$touch()"
+                      @blur="$v.post.title.$touch()"
+                      maxlength="120"
+                      required
+              ></b-input>
+            </b-field>
+          </div>
         </div>
+      </div>
+    </section>
+    <div class="hero-body is-fullheight">
+      <div class="container">
+        <p class="subtitle">
+          <b-field
+                  label="Описание"
+                  :type="descriptionErrors.length > 0 ? 'is-danger' : ''"
+                  :message="descriptionErrors"
+          >
+            <b-input
+                    type="textarea"
+                    placeholder="Начните свой первые строки своей истории"
+                    v-model.trim="post.description"
+                    @input="$v.post.description.$touch()"
+                    @blur="$v.post.description.$touch()"
+            ></b-input>
+          </b-field>
+        </p>
+        <div class="field is-grouped is-pulled-right">
+          <div class="control">
+            <button
+                    class="button is-success"
+                    type="submit"
+                    @click.prevent="submit"
+                    :disabled="$v.$invalid"
+            >
+              <span>Создать</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import { validationMixin } from 'vuelidate'
   import { maxLength, minLength, required } from 'vuelidate/lib/validators'
-  import { mapActions } from 'vuex'
   import dayjs from 'dayjs'
   import MessageBox from '../Shared/MessageBox'
 
@@ -88,7 +93,7 @@
     }),
     computed: {
       ...mapActions['addPost'],
-      message() {
+      message () {
         return this.$store.getters.message
       },
       titleErrors () {
@@ -116,7 +121,7 @@
           claps: 0,
           createdAt: dayjs().format(),
           updateAt: null,
-          userId: this.$store.getters.user.id
+          userId: this.$store.getters.user.id,
         }
         await this.$store.dispatch('addPost', post)
         setTimeout(() => {

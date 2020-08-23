@@ -76,7 +76,7 @@ $ npm run build # или $ yarn build
 ##### Reader (Читатель)
 > login: reader@mail.com <br/>
 > password: 123456
-<br/>
+
 ##### Writer (Писатель)
 > login: writer@mail.com <br/>
 > password: 123456

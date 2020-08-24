@@ -111,7 +111,7 @@
       },
     },
     methods: {
-      ...mapActions['addPost'],
+      ...mapActions(['addPost']),
       async submit () {
         this.$v.$touch()
 

@@ -91,8 +91,7 @@
         userId: null,
       },
     }),
-    computed: {
-      ...mapActions['addPost'],
+    computed: {      
       message () {
         return this.$store.getters.message
       },
@@ -112,6 +111,7 @@
       },
     },
     methods: {
+      ...mapActions['addPost'],
       async submit () {
         this.$v.$touch()
 
